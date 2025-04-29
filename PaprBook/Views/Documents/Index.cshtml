@@ -1,0 +1,75 @@
+﻿@model IEnumerable<PaprBook.Models.Document>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+<div class="col-2">
+    <div class="d-flex justify-content-center align-items-center" style="width: 150px; height: 200px;">
+        <a class="btn-grad" style="text-decoration: none" asp-action="Create">+</a>
+    </div>
+    <span class="fw-bold">Blank Document</span>
+</div>
+<hr/>
+
+<div class="row">
+@foreach(var item in Model)
+{
+    <div class="col-2">
+			<div class="d-flex justify-content-center align-items-center btn-grey">
+				<a style="text-decoration: none" asp-action="Edit" asp-route-id="@item.id"><span>&#128195;</span></a>
+            </div>
+        <span class="fw-bold">@item.Title</span>
+    </div>
+}
+</div>
+
+
+
+<style>
+    .btn-grey {
+        background-color: #B0E0E6;
+        padding-bottom: 15px;
+        width: 150px;
+        height: 200px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 70px;
+        color: black;
+        text-align: center;
+        background-size: 200% auto;
+        transition: 0.5s;
+        box-shadow: 0 0 20px #eee;
+        border-radius: 10px;
+	}
+    .btn-grey:hover {
+        background-position: right center;
+        background-color: #77b7bf;
+    }
+    /* .btn-grad {background-image: linear-gradient(to right, #ff00cc 0%, #333399  51%, #ff00cc  100%)} */
+    .btn-grad {background-color: bisque}
+    .btn-grad {
+        padding-bottom: 15px; /* Remove padding */
+        width: 120px; /* Set a consistent size if needed */
+        height: 120px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 70px;
+        /* color: white; */
+        color: black;
+        text-align: center;
+        /* background-image: linear-gradient(to right, #ff00cc 0%, #333399 51%, #ff00cc 100%); */
+        background-size: 200% auto;
+        transition: 0.5s;
+        box-shadow: 0 0 20px #eee;
+        border-radius: 10px;
+    }
+    .btn-grad:hover {
+        background-position: right center;
+        background-color: burlywood;
+        color: white;
+    }
+</style>
