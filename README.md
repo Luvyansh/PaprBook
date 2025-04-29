@@ -31,4 +31,4 @@ PaprBook is a simple **Google Docs clone** built using **ASP.NET Core MVC** and 
 
 1. **Clone the Repository**
    ```bash
-   git clone https://github.com/yourusername/PaprBook.git
+   git clone https://github.com/Luvyansh/PaprBook.git
