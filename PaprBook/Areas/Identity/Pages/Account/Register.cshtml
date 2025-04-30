@@ -1,0 +1,132 @@
+﻿@page
+@model RegisterModel
+@{
+    ViewData["Title"] = "Register - PaprBook (Anurag Pandey)";
+}
+
+<style>
+    body {
+        font-family: 'Fredoka', sans-serif;
+        background: linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 100%);
+        color: #333;
+    }
+
+    h1 {
+        font-family: 'Pacifico', cursive;
+        font-size: 2.5rem;
+        text-align: center;
+        margin-bottom: 2rem;
+        color: #6a0572;
+        animation: fadeInDown 1s;
+    }
+
+    form {
+        background: white;
+        padding: 30px;
+        border-radius: 20px;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    }
+
+    .form-floating label {
+        font-weight: 600;
+        color: #444;
+    }
+
+    .btn-primary {
+        background: linear-gradient(to right, #ec38bc, #7303c0);
+        border: none;
+        transition: transform 0.2s ease-in-out;
+    }
+
+        .btn-primary:hover {
+            transform: scale(1.05);
+        }
+
+    a {
+        color: #6a0572;
+        font-weight: bold;
+        text-decoration: none;
+    }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+    .external-btns button {
+        margin: 5px;
+        background-color: #ff6f61;
+        border: none;
+    }
+
+        .external-btns button:hover {
+            transform: rotate(-2deg) scale(1.05);
+            background-color: #ff856e;
+        }
+</style>
+
+<h1 class="animate__animated animate__fadeInDown">Welcome to PaprBook! ✨</h1>
+
+<div class="row justify-content-center">
+    <div class="col-md-5 animate__animated animate__fadeInLeft">
+        <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+            <h2 class="text-center">Create Your Funky Account 🎨</h2>
+            <hr />
+            <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+
+            <div class="form-floating mb-3">
+                <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" />
+                <label asp-for="Input.Email">Email</label>
+                <span asp-validation-for="Input.Email" class="text-danger"></span>
+            </div>
+
+            <div class="form-floating mb-3">
+                <input asp-for="Input.Password" class="form-control" autocomplete="new-password" aria-required="true" placeholder="Password" />
+                <label asp-for="Input.Password">Password</label>
+                <span asp-validation-for="Input.Password" class="text-danger"></span>
+            </div>
+
+            <div class="form-floating mb-3">
+                <input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" placeholder="Confirm Password" />
+                <label asp-for="Input.ConfirmPassword">Confirm Password</label>
+                <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+            </div>
+
+            <div class="text-center">
+                <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary animate__animated animate__rubberBand animate__delay-1s">Register 🚀</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="col-md-6 animate__animated animate__fadeInRight">
+        <section class="mt-4">
+            <h3>Or sign up with your favorite platform 💻</h3>
+            <hr />
+            @if ((Model.ExternalLogins?.Count ?? 0) == 0)
+            {
+                <div>
+                    <p>
+                        No external services set up yet.<br />
+                        <a href="https://go.microsoft.com/fwlink/?LinkID=532715">Learn how to configure them</a>.
+                    </p>
+                </div>
+            }
+            else
+            {
+                <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+                    <div class="external-btns text-center">
+                        @foreach (var provider in Model.ExternalLogins!)
+                        {
+                            <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name">
+                                @provider.DisplayName 🌍
+                            </button>
+                        }
+                    </div>
+                </form>
+            }
+        </section>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

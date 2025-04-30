@@ -3,33 +3,56 @@
 @inject UserManager<IdentityUser> userManager;
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "✍️ Create New Document - PaprBook";
 }
 
-<div class="row">
-    <div class="col-12">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <input asp-for="Title" class="form-control" value="Untitled Document"/>
+<div class="row justify-content-center">
+    <div class="col-lg-10 animate__animated animate__fadeInUp">
+        <form asp-action="Create" class="p-4 rounded shadow-lg" style="background-color: #ffffffcc;">
+            <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+            <div class="form-group mb-4">
+                <label asp-for="Title" class="form-label fw-bold" style="font-family: 'Pacifico', cursive; font-size: 1.3rem;">Title</label>
+                <input asp-for="Title" class="form-control form-control-lg" value="Untitled Document" style="font-family: 'Fredoka', sans-serif;" />
                 <span asp-validation-for="Title" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                
-                <textarea id="tiny" style="height: 80vh" asp-for="Content"></textarea>
+
+            <div class="form-group mb-4">
+                <label asp-for="Content" class="form-label fw-bold" style="font-family: 'Pacifico', cursive; font-size: 1.3rem;">Content</label>
+                <textarea id="tiny" asp-for="Content" style="height: 75vh;"></textarea>
                 <span asp-validation-for="Content" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <input type="hidden" asp-for="UserId" class="form-control" value="@userManager.GetUserId(User)"/>
-            </div>
-            <div class="form-group mt-4 d-grid mx-4" style="gap: 50rem; grid-template-columns: 4fr 4fr;">
-                <input type="submit" value="Save" class="btn btn-primary" />
-                <a class="btn btn-warning" asp-action="Index">Back to List</a>
+
+            <input type="hidden" asp-for="UserId" value="@userManager.GetUserId(User)" />
+
+            <div class="form-group d-flex justify-content-between mt-4">
+                <button type="submit" class="btn btn-lg btn-primary px-5 animate__animated animate__pulse animate__infinite">💾 Save</button>
+                <a class="btn btn-lg btn-warning px-5" asp-action="Index">🔙 Back to List</a>
             </div>
         </form>
     </div>
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        tinymce.init({
+            selector: '#tiny',
+            height: "75vh",
+            plugins: [
+                'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
+                'checklist mediaembed casechange formatpainter pageembed a11ychecker tinymcespellchecker permanentpen powerpaste',
+                'advtable advcode editimage advtemplate ai mentions tinycomments tableofcontents footnotes mergetags',
+                'autocorrect typography inlinecss markdown importword exportword exportpdf'
+            ],
+            toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
+            tinycomments_mode: 'embedded',
+            tinycomments_author: 'Author name',
+            mergetags_list: [
+                { value: 'First.Name', title: 'First Name' },
+                { value: 'Email', title: 'Email' },
+            ],
+            ai_request: (request, respondWith) => respondWith.string(() => Promise.reject('AI not implemented'))
+        });
+    </script>
 }
