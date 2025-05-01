@@ -23,8 +23,16 @@ jobs:
         with:
           dotnet-version: '8.x'
 
+      - name: Install dotnet-ef
+        run: dotnet tool install --global dotnet-ef
+
       - name: Build with dotnet
         run: dotnet build --configuration Release
+
+      - name: Create migrations bundle
+        run: |
+          export PATH="$PATH:$HOME/.dotnet/tools"
+          dotnet ef migrations bundle -o ${{env.DOTNET_ROOT}}/myapp/migrations.bundle
 
       - name: dotnet publish
         run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
@@ -65,4 +73,3 @@ jobs:
           app-name: 'paprbook'
           slot-name: 'Production'
           package: .
-          
