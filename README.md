@@ -12,7 +12,7 @@ PaprBook is a simple **Google Docs clone** built using **ASP.NET Core MVC** and 
 
 ## Technologies Used
 
-- ASP.NET Core MVC (.NET 6+)
+- ASP.NET Core MVC (.NET 8+)
 - Visual Studio 2022
 - TinyMCE (Free Text Editor API)
 - Bootstrap (for layout and styling)
@@ -23,7 +23,7 @@ PaprBook is a simple **Google Docs clone** built using **ASP.NET Core MVC** and 
 
 ### Prerequisites
 
-- Visual Studio 2022 (with .NET 6 SDK or later)
+- Visual Studio 2022 (with .NET 8 SDK or later)
 - SQL Server (for any future DB persistence features)
 - Internet connection (for TinyMCE CDN)
 
